@@ -46,13 +46,13 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 
 		private void _timer_Tick(object sender, EventArgs e)
 		{
-			var processes = Process.GetProcessesByName("explorer");
-			var success = false;
+			//var processes = Process.GetProcessesByName("explorer");
+			//var success = false;
 
-			foreach (var process in processes)
-			{
-				success = PostMessage(process.MainWindowHandle, WM_KEYDOWN, VK_F15, 0);
-			}
+			//foreach (var process in processes)
+			//{
+			//	success = PostMessage(process.MainWindowHandle, WM_KEYDOWN, VK_F15, 0);
+			//}
 
 			_activeTime = _activeTime.Add(TimeSpan.FromSeconds(1));
 			lblContent.Text = $"Sent F15 key to prevent sleep {_counter++} times over an interval of {_timer.Interval.Seconds} seconds. System active for {_activeTime.TotalSeconds} seconds with {success}";
