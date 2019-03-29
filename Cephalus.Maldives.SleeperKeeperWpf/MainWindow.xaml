@@ -18,12 +18,17 @@
                FontSize="40" Name="lblContent" Text="..." Padding="50, 50, 50, 50"  TextAlignment="Center"/>
 
 		<Label Content="Interval in milliseconds" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1" Foreground="White"/>
-		
+
 		<TextBox HorizontalAlignment="Center" VerticalAlignment="Bottom" AcceptsReturn="True" Text="1000" 
 				 HorizontalContentAlignment="Center" Name="txtInterval" FontSize="40" Padding="5, 5, 5, 5" Margin="0, 0, 5, 5"
 				 BorderThickness="2" BorderBrush="Azure" Grid.Row="2" KeyUp="TxtInterval_KeyUp" PreviewKeyDown="TxtInterval_PreviewKeyDown"
-				 Width="200" Background="LightGray"
-				 />
+				 Width="200" Background="LightGray">
+			<TextBox.Resources>
+				<Style TargetType="{x:Type Border}">
+					<Setter Property="CornerRadius" Value="5"/>
+				</Style>
+			</TextBox.Resources>
+		</TextBox>
 		<!--<Button Content="Exit" Grid.Row="3" FontSize="20" Click="ButtonExit_Click" Name="btnExit" />-->
 	</Grid>
 </Window>

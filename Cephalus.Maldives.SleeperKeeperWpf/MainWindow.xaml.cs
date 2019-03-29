@@ -28,29 +28,22 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 
 			_simulator = new InputSimulator();
 
-			_notifyIcon = new NotifyIcon();
-			_notifyIcon.Visible = true;
-			_notifyIcon.Icon = new System.Drawing.Icon(@"C:\Users\jgribic\Desktop\icon.ico");
-			_notifyIcon.DoubleClick += _notifyIcon_DoubleClick;
-			_notifyIcon.ShowBalloonTip(5000, "Hi I am right here", "Hi I am right now", ToolTipIcon.Info);
-
-			VisualTextRenderingMode = System.Windows.Media.TextRenderingMode.Grayscale;
-
+			SetupNotifyIcon();
 			SetupTimer();
 
 			_activeTime = new TimeSpan();
 		}
 
-		private void _notifyIcon_DoubleClick(object sender, EventArgs e)
+		private void SetupNotifyIcon()
 		{
-			if (WindowState == WindowState.Minimized)
+			_notifyIcon = new NotifyIcon
 			{
-				WindowState = WindowState.Normal;
-			}
-			else
-			{
-				WindowState = WindowState.Minimized;
-			}
+				Visible = true,
+				Icon = new System.Drawing.Icon(@"C:\Users\jgribic\source\repos\Cephalus.Maldives.SleeperKeeper\Cephalus.Maldives.SleeperKeeperWpf\Resources\icon-active.ico"),
+				Text = Title
+			};
+			_notifyIcon.DoubleClick += (s, e) => VisibilityHandler();
+			_notifyIcon.ShowBalloonTip(2000, "Sleeper Keeper", "Hi I am actively keeping your maching awake", ToolTipIcon.Info);
 		}
 
 		private void SetupTimer()
@@ -70,21 +63,7 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 			if (_hotkeyHandler == null)
 			{
 				_hotkeyHandler = new HotkeyHandler(this);
-				_hotkeyHandler.RegisterKeyHandler(() => 
-				{
-					if (WindowState == WindowState.Minimized)
-					{
-						WindowState = WindowState.Normal;
-						ShowActivated = true;
-						Show();
-						Activate();
-					}
-					else
-					{
-						WindowState = WindowState.Minimized;
-						Hide();
-					}
-				});
+				_hotkeyHandler.RegisterKeyHandler(() => VisibilityHandler());
 			}
 		}
 
@@ -93,6 +72,21 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 			base.OnClosing(e);
 			_hotkeyHandler.UnregisterHotKey();
 			_notifyIcon.Dispose();
+		}
+
+		private void VisibilityHandler()
+		{
+			if (WindowState == WindowState.Minimized)
+			{
+				Show();
+				WindowState = WindowState.Normal;
+				Activate();
+			}
+			else
+			{
+				WindowState = WindowState.Minimized;
+				Hide();
+			}
 		}
 
 		private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
