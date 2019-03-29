@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28721.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cephalus.Maldives.SleeperKeeper", "Cephalus.Maldives.SleeperKeeper\Cephalus.Maldives.SleeperKeeper.csproj", "{A62E153C-C68E-45A5-A445-45AF95E9FC9C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cephalus.Maldives.SleeperKeeperWpf", "Cephalus.Maldives.SleeperKeeperWpf\Cephalus.Maldives.SleeperKeeperWpf.csproj", "{F20DE0E1-33AA-4598-8937-FE70D569B4A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephalus.Maldives.SleeperKeeperWpf", "Cephalus.Maldives.SleeperKeeperWpf\Cephalus.Maldives.SleeperKeeperWpf.csproj", "{F20DE0E1-33AA-4598-8937-FE70D569B4A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A62E153C-C68E-45A5-A445-45AF95E9FC9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A62E153C-C68E-45A5-A445-45AF95E9FC9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A62E153C-C68E-45A5-A445-45AF95E9FC9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A62E153C-C68E-45A5-A445-45AF95E9FC9C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F20DE0E1-33AA-4598-8937-FE70D569B4A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F20DE0E1-33AA-4598-8937-FE70D569B4A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F20DE0E1-33AA-4598-8937-FE70D569B4A3}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -5,14 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cephalus.Maldives.SleeperKeeperWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Sleeper Away Keeper" Height="450" Width="800" MinWidth="500" Background="Black" Foreground="LightGray">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="9*"/>
 			<RowDefinition Height="1*"/>
+			<RowDefinition Height="3*"/>
+			<RowDefinition Height="2*"/>
 		</Grid.RowDefinitions>
-		<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow"
-               FontSize="40" Name="lblContent" Text="..." Padding="50, 50, 50, 50"/>
-		<Button Content="Exit" Grid.Row="1" FontSize="20" Click="ButtonExit_Click" Name="btnExit" />
+
+		<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" Grid.Row="0"
+               FontSize="40" Name="lblContent" Text="..." Padding="50, 50, 50, 50"  TextAlignment="Center"/>
+
+		<Label Content="Interval in milliseconds" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1" Foreground="White"/>
+		
+		<TextBox HorizontalAlignment="Center" VerticalAlignment="Bottom" AcceptsReturn="True" Text="1000" 
+				 HorizontalContentAlignment="Center" Name="txtInterval" FontSize="40" Padding="5, 5, 5, 5" Margin="0, 0, 5, 5"
+				 BorderThickness="2" BorderBrush="Azure" Grid.Row="2" KeyUp="TxtInterval_KeyUp" PreviewKeyDown="TxtInterval_PreviewKeyDown"
+				 Width="200" Background="LightGray"
+				 />
+		<!--<Button Content="Exit" Grid.Row="3" FontSize="20" Click="ButtonExit_Click" Name="btnExit" />-->
 	</Grid>
 </Window>
