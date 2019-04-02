@@ -21,12 +21,21 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 		private InputSimulator _simulator;
 		private static HotkeyHandler _hotkeyHandler;
 		private NotifyIcon _notifyIcon;
+		private readonly KeyHandler _keyHandler;
 
 		public MainWindow()
 		{
 			InitializeComponent();
 
 			_simulator = new InputSimulator();
+			_keyHandler = new KeyHandler();
+			_keyHandler.AddHandler(System.Windows.Input.Key.Escape, () => {
+				if (WindowStyle == WindowStyle.None && WindowState == WindowState.Maximized)
+				{
+					WindowStyle = WindowStyle.ThreeDBorderWindow;
+					WindowState = WindowState.Normal;
+				}
+			});
 
 			SetupNotifyIcon();
 			SetupTimer();
@@ -63,7 +72,7 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 			if (_hotkeyHandler == null)
 			{
 				_hotkeyHandler = new HotkeyHandler(this);
-				_hotkeyHandler.RegisterKeyHandler(() => VisibilityHandler());
+				_hotkeyHandler.RegisterKeyHandler(() => VisibilityHandler(), 0x79, 0x0002);
 			}
 		}
 
@@ -76,15 +85,30 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 
 		private void VisibilityHandler()
 		{
-			if (WindowState == WindowState.Minimized)
+			if (WindowState == WindowState.Normal)
 			{
 				Show();
-				WindowState = WindowState.Normal;
+				WindowState = WindowState.Maximized;
+				WindowStyle = WindowStyle.None;
+				
+				//int screenLeft = SystemInformation.VirtualScreen.Left;
+				//int screenTop = SystemInformation.VirtualScreen.Top;
+				//int screenWidth = SystemInformation.VirtualScreen.Width + 40;
+				//int screenHeight = SystemInformation.VirtualScreen.Height + 40;
+
+				//Width = screenWidth;
+				//Height = screenHeight;
+				//Top = screenTop;
+				//Left = screenLeft;
+				Topmost = true;
+
 				Activate();
 			}
 			else
 			{
-				WindowState = WindowState.Minimized;
+				WindowState = WindowState.Normal;
+
+				Topmost = false;
 				Hide();
 			}
 		}
@@ -134,6 +158,15 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 			{
 				e.Handled = true;
 			}
+		}
+
+		private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+		{
+			_keyHandler.Handle(e);
+			//if (e.Key == System.Windows.Input.Key.Escape)
+			//{
+
+			//}
 		}
 	}
 }

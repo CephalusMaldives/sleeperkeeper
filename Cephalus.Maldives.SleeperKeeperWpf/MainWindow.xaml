@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cephalus.Maldives.SleeperKeeperWpf"
         mc:Ignorable="d"
-        Title="Sleeper Away Keeper" Height="450" Width="800" MinWidth="500" Background="Black" Foreground="LightGray">
+        Title="Sleeper Away Keeper" Height="450" Width="800" MinWidth="500" Background="Black" Foreground="LightGray" KeyDown="Window_KeyDown">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="9*"/>

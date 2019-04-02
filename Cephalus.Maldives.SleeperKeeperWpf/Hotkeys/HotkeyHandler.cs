@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -20,11 +22,14 @@ namespace Cephalus.Maldives.SleeperKeeperWpf.Hotkeys
 			[In] int id);
 
 		private const int HOTKEY_ID = 9000;
+		private const uint VK_F10 = 0x79;
+		private const uint MOD_CTRL = 0x0002;
 
+		private List<int> hotKeyIdentifiers = Enumerable.Range(9000, 1000).ToList();
 		private readonly HwndSource _source;
 		private readonly Window _window;
-		private Action _handler;
-
+		private Dictionary<int, Action> _handlers = new Dictionary<int, Action>();
+		
 		public HotkeyHandler(Window window)
 		{
 			_window = window;
@@ -33,13 +38,19 @@ namespace Cephalus.Maldives.SleeperKeeperWpf.Hotkeys
 
 			_source = HwndSource.FromHwnd(helper.Handle);
 			_source.AddHook(HwndHook);
-
-			RegisterHotKeyInternal();
 		}
 
-		public void RegisterKeyHandler(Action handler)
+		public void RegisterKeyHandler(Action handler, uint virtualKey, uint modifierKey)
 		{
-			_handler = handler;
+			var helper = new WindowInteropHelper(_window);
+			var identifier = GetNewHotkeyId();
+
+			_handlers.Add(identifier, handler);
+
+			if (!RegisterHotKey(helper.Handle, identifier, modifierKey, virtualKey))
+			{
+
+			}
 		}
 
 		public void UnregisterHotKey()
@@ -54,19 +65,6 @@ namespace Cephalus.Maldives.SleeperKeeperWpf.Hotkeys
 			UnregisterHotKey(helper.Handle, HOTKEY_ID);
 		}
 
-		private void RegisterHotKeyInternal()
-		{
-			var helper = new WindowInteropHelper(_window);
-
-			const uint VK_F10 = 0x79;
-			const uint MOD_CTRL = 0x0002;
-
-			if (!RegisterHotKey(helper.Handle, HOTKEY_ID, MOD_CTRL, VK_F10))
-			{
-				// handle error
-			}
-		}
-
 		private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
 		{
 			const int WM_HOTKEY = 0x0312;
@@ -74,21 +72,23 @@ namespace Cephalus.Maldives.SleeperKeeperWpf.Hotkeys
 			switch (msg)
 			{
 				case WM_HOTKEY:
-					switch (wParam.ToInt32())
-					{
-						case HOTKEY_ID:
-							if (_handler != null)
-							{
-								_handler();
-							}
+					var param = wParam.ToInt32();
+					var handler = _handlers[param];
 
-							handled = true;
-							break;
-					}
+					handler?.Invoke();
 					break;
 			}
 
 			return IntPtr.Zero;
+		}
+
+		private int GetNewHotkeyId()
+		{
+			var identifier = hotKeyIdentifiers.First();
+
+			hotKeyIdentifiers.RemoveAt(0);
+
+			return identifier;
 		}
 	}
 }
