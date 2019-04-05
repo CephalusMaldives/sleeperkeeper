@@ -1,6 +1,7 @@
 ﻿using Cephalus.Maldives.SleeperKeeperWpf.KeyHandling;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Threading;
@@ -50,12 +51,12 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 
 		private void SetupNotifyIcon()
 		{
-            var path = AppDomain.CurrentDomain.BaseDirectory;
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resources");
 
             _notifyIcon = new NotifyIcon
 			{
 				Visible = true,
-				//Icon = new System.Drawing.Icon(@"C:\Users\jgribic\source\repos\Cephalus.Maldives.SleeperKeeper\Cephalus.Maldives.SleeperKeeperWpf\Resources\icon-active.ico"),
+				Icon = new System.Drawing.Icon(Path.Combine(path, "icon-active.ico")),
 				Text = Title
 			};
 			_notifyIcon.DoubleClick += (s, e) => VisibilityHandler();
@@ -125,7 +126,6 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 			}
 			catch
 			{
-
 			}
 		}
 
@@ -159,7 +159,7 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 
 		private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
 		{
-			_keyHandler.Handle(e);
+			_keyHandler.HandleDown(e);
 		}
 	}
 }

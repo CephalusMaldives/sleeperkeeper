@@ -21,10 +21,6 @@ namespace Cephalus.Maldives.SleeperKeeperWpf.KeyHandling
 			[In] IntPtr hWnd,
 			[In] int id);
 
-		private const int HOTKEY_ID = 9000;
-		private const uint VK_F10 = 0x79;
-		private const uint MOD_CTRL = 0x0002;
-
 		private List<int> hotKeyIdentifiers = Enumerable.Range(9000, 1000).ToList();
 		private readonly HwndSource _source;
 		private readonly Window _window;
