@@ -1,4 +1,4 @@
-﻿using Cephalus.Maldives.SleeperKeeperWpf.Hotkeys;
+﻿using Cephalus.Maldives.SleeperKeeperWpf.KeyHandling;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -21,20 +21,25 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 		private InputSimulator _simulator;
 		private static HotkeyHandler _hotkeyHandler;
 		private NotifyIcon _notifyIcon;
-		private readonly KeyHandler _keyHandler;
+		private readonly FormKeyHandler _keyHandler;
 
 		public MainWindow()
 		{
 			InitializeComponent();
 
 			_simulator = new InputSimulator();
-			_keyHandler = new KeyHandler();
+			_keyHandler = new FormKeyHandler();
 			_keyHandler.AddHandler(System.Windows.Input.Key.Escape, () => {
-				if (WindowStyle == WindowStyle.None && WindowState == WindowState.Maximized)
+				if (WindowState == WindowState.Maximized)
 				{
 					WindowStyle = WindowStyle.ThreeDBorderWindow;
 					WindowState = WindowState.Normal;
 				}
+                else if (WindowState == WindowState.Normal)
+                {
+                    WindowState = WindowState.Minimized;
+                    Hide();
+                }
 			});
 
 			SetupNotifyIcon();
@@ -45,10 +50,12 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 
 		private void SetupNotifyIcon()
 		{
-			_notifyIcon = new NotifyIcon
+            var path = AppDomain.CurrentDomain.BaseDirectory;
+
+            _notifyIcon = new NotifyIcon
 			{
 				Visible = true,
-				Icon = new System.Drawing.Icon(@"C:\Users\jgribic\source\repos\Cephalus.Maldives.SleeperKeeper\Cephalus.Maldives.SleeperKeeperWpf\Resources\icon-active.ico"),
+				//Icon = new System.Drawing.Icon(@"C:\Users\jgribic\source\repos\Cephalus.Maldives.SleeperKeeper\Cephalus.Maldives.SleeperKeeperWpf\Resources\icon-active.ico"),
 				Text = Title
 			};
 			_notifyIcon.DoubleClick += (s, e) => VisibilityHandler();
@@ -90,16 +97,6 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 				Show();
 				WindowState = WindowState.Maximized;
 				WindowStyle = WindowStyle.None;
-				
-				//int screenLeft = SystemInformation.VirtualScreen.Left;
-				//int screenTop = SystemInformation.VirtualScreen.Top;
-				//int screenWidth = SystemInformation.VirtualScreen.Width + 40;
-				//int screenHeight = SystemInformation.VirtualScreen.Height + 40;
-
-				//Width = screenWidth;
-				//Height = screenHeight;
-				//Top = screenTop;
-				//Left = screenLeft;
 				Topmost = true;
 
 				Activate();
@@ -163,10 +160,6 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 		private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
 		{
 			_keyHandler.Handle(e);
-			//if (e.Key == System.Windows.Input.Key.Escape)
-			//{
-
-			//}
 		}
 	}
 }

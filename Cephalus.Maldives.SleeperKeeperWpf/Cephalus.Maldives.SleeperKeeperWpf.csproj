@@ -8,7 +8,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\icon-active.ico" />
+    <None Remove="Resources\icon-inactive.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="InputSimulator" Version="1.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\icon-active.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon-inactive.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Activity\" />
   </ItemGroup>
 
 </Project>

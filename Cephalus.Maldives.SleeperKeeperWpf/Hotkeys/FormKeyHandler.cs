@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Windows.Input;
 
-namespace Cephalus.Maldives.SleeperKeeperWpf
+namespace Cephalus.Maldives.SleeperKeeperWpf.KeyHandling
 {
-	public class KeyHandler
+	public class FormKeyHandler
 	{
 		private readonly Dictionary<Key, Action> _keyHandlers = new Dictionary<Key, Action>();
 

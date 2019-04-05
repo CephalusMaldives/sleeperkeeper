@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace Cephalus.Maldives.SleeperKeeperWpf.Hotkeys
+namespace Cephalus.Maldives.SleeperKeeperWpf.KeyHandling
 {
 	public class HotkeyHandler
 	{
@@ -62,7 +62,10 @@ namespace Cephalus.Maldives.SleeperKeeperWpf.Hotkeys
 		{
 			var helper = new WindowInteropHelper(_window);
 
-			UnregisterHotKey(helper.Handle, HOTKEY_ID);
+            foreach (var handler in _handlers)
+            {
+                UnregisterHotKey(helper.Handle, handler.Key);
+            }
 		}
 
 		private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
