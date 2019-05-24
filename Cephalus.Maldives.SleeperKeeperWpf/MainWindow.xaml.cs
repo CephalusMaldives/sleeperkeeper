@@ -121,7 +121,7 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 			try
 			{
 				_simulator.Mouse.MoveMouseBy(1, 1).MoveMouseBy(-1, -1);
-				_simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.SCROLL);
+				_simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.NONAME);
 				_activeTime = _activeTime.Add(TimeSpan.FromMilliseconds(_timer.Interval.TotalMilliseconds));
 				lblContent.Text = $"Preventing sleep {_counter++} times over an interval of {_timer.Interval.Seconds} seconds.\n\rSystem is active for {_activeTime.TotalSeconds} seconds.";
 			}
