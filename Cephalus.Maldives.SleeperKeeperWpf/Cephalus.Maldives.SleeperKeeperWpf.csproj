@@ -17,12 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\icon-active.ico">
+    <Content Include="Resources\icon-active.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\icon-inactive.ico">
+    </Content>
+    <Content Include="Resources\icon-inactive.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

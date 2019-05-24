@@ -17,9 +17,9 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 		private const int DefaultIntervalInMilliseconds = 1000;
 
 		private int _counter;
+		private readonly InputSimulator _simulator;
 		private DispatcherTimer _timer;
 		private TimeSpan _activeTime;
-		private InputSimulator _simulator;
 		private static HotkeyHandler _hotkeyHandler;
 		private NotifyIcon _notifyIcon;
 		private readonly FormKeyHandler _keyHandler;
@@ -51,7 +51,7 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 
 		private void SetupNotifyIcon()
 		{
-            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resources");
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources");
 
             _notifyIcon = new NotifyIcon
 			{
@@ -121,6 +121,7 @@ namespace Cephalus.Maldives.SleeperKeeperWpf
 			try
 			{
 				_simulator.Mouse.MoveMouseBy(1, 1).MoveMouseBy(-1, -1);
+				_simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.SCROLL);
 				_activeTime = _activeTime.Add(TimeSpan.FromMilliseconds(_timer.Interval.TotalMilliseconds));
 				lblContent.Text = $"Preventing sleep {_counter++} times over an interval of {_timer.Interval.Seconds} seconds.\n\rSystem is active for {_activeTime.TotalSeconds} seconds.";
 			}
